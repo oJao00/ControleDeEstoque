@@ -15,6 +15,8 @@ namespace ControleDeEstoque.Repositories
             _context = context;
         }
 
+
+
         public async Task<List<Fornecedor>> GetAllAsync()
         {
             return await _context.Fornecedores.ToListAsync();

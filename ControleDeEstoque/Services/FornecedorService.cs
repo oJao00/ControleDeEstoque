@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ControleDeEstoque.Data;
 using ControleDeEstoque.Models;
 using ControleDeEstoque.Repositories.Interfaces;
 using ControleDeEstoque.Services.Interfaces;
@@ -15,7 +16,7 @@ namespace ControleDeEstoque.Services
 
         public FornecedorService(IFornecedorRepository fornecedorRepository)
         {
-            _fornecedorRepository = fornecedorRepository;
+            _fornecedorRepository = fornecedorRepository ?? throw new ArgumentNullException(nameof(fornecedorRepository));
         }
 
         public async Task<List<Fornecedor>> GetAllFornecedoresAsync()

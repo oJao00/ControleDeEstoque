@@ -79,11 +79,14 @@ namespace ControleDeEstoque.Models
             get => _cidade;
             set
             {
-                if (string.IsNullOrWhiteSpace(value) || !Regex.IsMatch(value, @"^[A-Za-z\s]+$"))
-                    throw new ArgumentException("Cidade inválida. Use apenas letras.");
+                // Regex ajustada para permitir letras com acento e espaço
+                if (string.IsNullOrWhiteSpace(value) || !Regex.IsMatch(value, @"^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$"))
+                    throw new ArgumentException("Cidade inválida. Use apenas letras e espaços.");
+
                 _cidade = value;
             }
         }
+
 
         public string Complemento { get; set; }
     }
