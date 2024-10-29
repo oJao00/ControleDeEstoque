@@ -20,13 +20,15 @@ namespace ControleDeEstoque
         private readonly IItemService _itemService;
         private readonly IFornecedorService _fornecedorService;
         private readonly IClienteService _clienteService;
+        private readonly IProducaoService _producaoService;
 
-        public MainForm(IItemService itemService, IFornecedorService fornecedorService, IClienteService clienteService)
+        public MainForm(IItemService itemService, IFornecedorService fornecedorService, IClienteService clienteService, IProducaoService producaoService)
         {
             InitializeComponent();
             _itemService = itemService ?? throw new ArgumentNullException(nameof(itemService));
             _fornecedorService = fornecedorService ?? throw new ArgumentNullException(nameof(fornecedorService));
             _clienteService = clienteService ?? throw new ArgumentNullException(nameof(clienteService));
+            _producaoService = producaoService ?? throw new ArgumentNullException(nameof(producaoService));
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -43,6 +45,19 @@ namespace ControleDeEstoque
         {
             var cadastroClienteForm = new CadastroClienteForm(_clienteService);
             cadastroClienteForm.ShowDialog();
+        }
+
+        private void fornecedorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var cadastroFornecedorForm = new CadastroFornecedorForm(_fornecedorService);
+            cadastroFornecedorForm.ShowDialog();
+        }
+
+        private void produçãoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var cadastroProducaoForm = new CadastroProducaoForm(_producaoService, _itemService);
+            cadastroProducaoForm.ShowDialog();
+
         }
     }
 }

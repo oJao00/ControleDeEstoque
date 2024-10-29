@@ -81,12 +81,14 @@
             fornecedorToolStripMenuItem.Name = "fornecedorToolStripMenuItem";
             fornecedorToolStripMenuItem.Size = new Size(180, 22);
             fornecedorToolStripMenuItem.Text = "Fornecedor";
+            fornecedorToolStripMenuItem.Click += fornecedorToolStripMenuItem_Click;
             // 
             // produçãoToolStripMenuItem1
             // 
             produçãoToolStripMenuItem1.Name = "produçãoToolStripMenuItem1";
             produçãoToolStripMenuItem1.Size = new Size(180, 22);
             produçãoToolStripMenuItem1.Text = "Produção";
+            produçãoToolStripMenuItem1.Click += produçãoToolStripMenuItem1_Click;
             // 
             // vendaToolStripMenuItem
             // 
