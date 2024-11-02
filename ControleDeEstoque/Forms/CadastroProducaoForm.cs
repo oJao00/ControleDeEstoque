@@ -1,15 +1,5 @@
 ﻿using ControleDeEstoque.Models;
-using ControleDeEstoque.Services;
 using ControleDeEstoque.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ControleDeEstoque.Forms
 {
@@ -25,20 +15,9 @@ namespace ControleDeEstoque.Forms
 
         }
 
-        private async void CadastroProducaoForm_Load(object sender, EventArgs e)
-        {
-            await CarregarProdutos(); // Chama o método assíncrono para carregar produtos
-        }
-        private async Task CarregarProdutos()
-        {
-            var produtos = await _itemService.GetAllItemsAsync(); // Método que busca todos os itens
-            cmbProduto.DataSource = produtos; // Definindo a fonte de dados do ComboBox
-            cmbProduto.DisplayMember = "Nome"; // O que será exibido no ComboBox
-            cmbProduto.ValueMember = "Id"; // O valor associado
-        }
         private void InicializarCampos()
         {
-            cmbProduto.Text = string.Empty;
+            txtProduto.Text = string.Empty;
             dtpDataProducao.Value = DateTime.Now;
             nudQuantidadeProduzida.Value = 0;
             nudQuantidadePerdida.Value = 0;
@@ -50,10 +29,10 @@ namespace ControleDeEstoque.Forms
 
         private bool ValidarCampos()
         {
-            if (string.IsNullOrWhiteSpace(cmbProduto.Text))
+            if (string.IsNullOrWhiteSpace(txtProduto.Text))
             {
                 MessageBox.Show("O campo Produto é obrigatório.");
-                cmbProduto.Focus();
+                txtProduto.Focus();
                 return false;
             }
             if (string.IsNullOrWhiteSpace(txtCondicoesAmbientais.Text))
@@ -83,12 +62,10 @@ namespace ControleDeEstoque.Forms
             {
                 try
                 {
-                    // Presumindo que você tenha um ComboBox chamado cmbProduto
-                    var itemSelecionado = (Item)cmbProduto.SelectedItem; // Obtendo o Item selecionado
 
                     var producao = new Producao
                     {
-                        Produto = itemSelecionado, // Atribuindo o objeto Item
+                        Produto = txtProduto.Text.Trim(),
                         DataDeProducao = dtpDataProducao.Value,
                         QuantidadeProduzida = (int)nudQuantidadeProduzida.Value,
                         QuantidadePerdida = (int)nudQuantidadePerdida.Value,
@@ -111,6 +88,7 @@ namespace ControleDeEstoque.Forms
 
         private void LimparCampos()
         {
+            txtProduto.Clear();
             dtpDataProducao.Value = DateTime.Now;
             nudQuantidadeProduzida.Value = 0;
             nudQuantidadePerdida.Value = 0;
@@ -120,10 +98,7 @@ namespace ControleDeEstoque.Forms
             txtObservacoes.Clear();
         }
 
-        private void btnCancelarProducao_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
@@ -138,5 +113,14 @@ namespace ControleDeEstoque.Forms
             }
         }
 
+        private void btnCancelarProducao_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void CadastroProducaoForm_Load(object sender, EventArgs e)
+        {
+            InicializarCampos();
+        }
     }
 }

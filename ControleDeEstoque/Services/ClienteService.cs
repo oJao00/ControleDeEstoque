@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ControleDeEstoque.Models;
+﻿using ControleDeEstoque.Models;
 using ControleDeEstoque.Repositories.Interfaces;
 using ControleDeEstoque.Services.Interfaces;
 
@@ -41,6 +36,10 @@ namespace ControleDeEstoque.Services
         public async Task DeleteClienteAsync(int id)
         {
             await _clienteRepository.DeleteAsync(id);
+        }
+        public IEnumerable<Cliente> ObterTodosClientes()
+        {
+            return _clienteRepository.ObterTodos(); // Supondo que você tenha um método ObterTodos no repositório
         }
     }
 }

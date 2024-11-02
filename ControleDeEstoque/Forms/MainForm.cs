@@ -1,17 +1,8 @@
-﻿using ControleDeEstoque.Forms;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using ControleDeEstoque.Data;
+using ControleDeEstoque.Forms;
 using ControleDeEstoque.Services.Interfaces;
-using ControleDeEstoque.Services;
-using ControleDeEstoque.Data;
-using ControleDeEstoque.Repositories;
+using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 
 namespace ControleDeEstoque
 {
@@ -21,14 +12,21 @@ namespace ControleDeEstoque
         private readonly IFornecedorService _fornecedorService;
         private readonly IClienteService _clienteService;
         private readonly IProducaoService _producaoService;
+        private readonly IVendaService _vendaService;
+        private readonly ApplicationDbContext _context;
 
-        public MainForm(IItemService itemService, IFornecedorService fornecedorService, IClienteService clienteService, IProducaoService producaoService)
+        public MainForm(IItemService itemService, IFornecedorService fornecedorService, IClienteService clienteService, IProducaoService producaoService, IVendaService vendaService, ApplicationDbContext context)
         {
             InitializeComponent();
             _itemService = itemService ?? throw new ArgumentNullException(nameof(itemService));
             _fornecedorService = fornecedorService ?? throw new ArgumentNullException(nameof(fornecedorService));
             _clienteService = clienteService ?? throw new ArgumentNullException(nameof(clienteService));
             _producaoService = producaoService ?? throw new ArgumentNullException(nameof(producaoService));
+            _vendaService = vendaService ?? throw new ArgumentNullException(nameof(vendaService));
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            optionsBuilder.UseSqlServer("Server=DESKTOP-32RL4S3;Database=ControleDeEstoqueDB;Trusted_Connection=True;TrustServerCertificate=True;"); // Substitua por sua string de conexão
+
+            _context = new ApplicationDbContext(optionsBuilder.Options);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -58,6 +56,15 @@ namespace ControleDeEstoque
             var cadastroProducaoForm = new CadastroProducaoForm(_producaoService, _itemService);
             cadastroProducaoForm.ShowDialog();
 
+        }
+
+        private void novaVendaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+                var vendaForm = new NovaVendaForm(_itemService, _clienteService, _vendaService, _context);
+
+                vendaForm.ShowDialog();
+            
         }
     }
 }

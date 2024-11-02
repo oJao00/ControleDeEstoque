@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ControleDeEstoque.Models;
+﻿using ControleDeEstoque.Models;
 
 
 namespace ControleDeEstoque.Services.Interfaces
@@ -15,5 +10,6 @@ namespace ControleDeEstoque.Services.Interfaces
         Task AddClienteAsync(Cliente cliente);
         Task UpdateClienteAsync(Cliente cliente);
         Task DeleteClienteAsync(int id);
+        IEnumerable<Cliente> ObterTodosClientes();
     }
 }

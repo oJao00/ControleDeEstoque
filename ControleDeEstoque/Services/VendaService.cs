@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ControleDeEstoque.Data;
 using ControleDeEstoque.Models;
 using ControleDeEstoque.Repositories.Interfaces;
 using ControleDeEstoque.Services.Interfaces;
@@ -12,9 +8,11 @@ namespace ControleDeEstoque.Services
     public class VendaService : IVendaService
     {
         private readonly IVendaRepository _vendaRepository;
+        private readonly ApplicationDbContext _context;
 
-        public VendaService(IVendaRepository vendaRepository)
+        public VendaService(ApplicationDbContext context, IVendaRepository vendaRepository)
         {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
             _vendaRepository = vendaRepository;
         }
 
@@ -42,5 +40,31 @@ namespace ControleDeEstoque.Services
         {
             await _vendaRepository.DeleteAsync(id);
         }
+
+        public void SalvarVenda(Venda venda)
+        {
+            if (venda == null)
+                throw new ArgumentNullException(nameof(venda));
+
+            venda.ValorTotal = 0;
+
+            foreach (var vendaItem in venda.ItensVendidos)
+            {
+                var item = _context.Itens.Find(vendaItem.ItemId);
+                if (item == null)
+                    throw new InvalidOperationException($"Item com ID {vendaItem.ItemId} não encontrado.");
+
+                vendaItem.PrecoUnitario = item.Preco; // Atualiza o preço do item
+                venda.ValorTotal += vendaItem.PrecoUnitario * vendaItem.Quantidade;
+            }
+
+            _context.Vendas.Add(venda);
+            _context.SaveChanges();
+        }
+
+
+
+
+
     }
 }

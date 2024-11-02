@@ -1,9 +1,5 @@
-﻿using ControleDeEstoque.Services.Interfaces;
-using ControleDeEstoque.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
+﻿using ControleDeEstoque.Models;
+using ControleDeEstoque.Services.Interfaces;
 
 namespace ControleDeEstoque.Forms
 {
@@ -180,7 +176,7 @@ namespace ControleDeEstoque.Forms
         // Evento do botão Cancelar
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-                this.Close();      
+            this.Close();
         }
 
         //Mensagem de confirmação para fechar a tela

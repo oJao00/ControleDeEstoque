@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ControleDeEstoque.Data;
+﻿using ControleDeEstoque.Data;
 using ControleDeEstoque.Models;
 using ControleDeEstoque.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -50,6 +45,10 @@ namespace ControleDeEstoque.Repositories
                 _context.Clientes.Remove(cliente);
                 await _context.SaveChangesAsync();
             }
+        }
+        public IEnumerable<Cliente> ObterTodos()
+        {
+            return _context.Clientes.ToList(); // Ajuste conforme sua estrutura de contexto
         }
     }
 }

@@ -52,6 +52,26 @@ namespace ControleDeEstoque.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Producao",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Produto = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DataDeProducao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    QuantidadeProduzida = table.Column<int>(type: "int", nullable: false),
+                    QuantidadePerdida = table.Column<int>(type: "int", nullable: false),
+                    CondicoesAmbientais = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MetodoDeProducao = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EquipamentoUtilizado = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Observacoes = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Producao", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Pedidos",
                 columns: table => new
                 {
@@ -80,8 +100,8 @@ namespace ControleDeEstoque.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Data = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
+                    Data = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ValorTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     MetodoDePagamento = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -107,8 +127,7 @@ namespace ControleDeEstoque.Migrations
                     Preco = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     QuantidadeEstoque = table.Column<int>(type: "int", nullable: false),
                     FornecedorId = table.Column<int>(type: "int", nullable: false),
-                    PedidoId = table.Column<int>(type: "int", nullable: true),
-                    VendaId = table.Column<int>(type: "int", nullable: true)
+                    PedidoId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -117,11 +136,6 @@ namespace ControleDeEstoque.Migrations
                         name: "FK_Itens_Pedidos_PedidoId",
                         column: x => x.PedidoId,
                         principalTable: "Pedidos",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Itens_Vendas_VendaId",
-                        column: x => x.VendaId,
-                        principalTable: "Vendas",
                         principalColumn: "Id");
                 });
 
@@ -146,27 +160,29 @@ namespace ControleDeEstoque.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Producao",
+                name: "VendaItens",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProdutoId = table.Column<int>(type: "int", nullable: false),
-                    DataDeProducao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    QuantidadeProduzida = table.Column<int>(type: "int", nullable: false),
-                    QuantidadePerdida = table.Column<int>(type: "int", nullable: false),
-                    CondicoesAmbientais = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MetodoDeProducao = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EquipamentoUtilizado = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Observacoes = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    VendaId = table.Column<int>(type: "int", nullable: false),
+                    ItemId = table.Column<int>(type: "int", nullable: false),
+                    Quantidade = table.Column<int>(type: "int", nullable: false),
+                    PrecoUnitario = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Producao", x => x.Id);
+                    table.PrimaryKey("PK_VendaItens", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Producao_Itens_ProdutoId",
-                        column: x => x.ProdutoId,
+                        name: "FK_VendaItens_Itens_ItemId",
+                        column: x => x.ItemId,
                         principalTable: "Itens",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_VendaItens_Vendas_VendaId",
+                        column: x => x.VendaId,
+                        principalTable: "Vendas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -182,19 +198,19 @@ namespace ControleDeEstoque.Migrations
                 column: "PedidoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Itens_VendaId",
-                table: "Itens",
-                column: "VendaId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Pedidos_ClienteId",
                 table: "Pedidos",
                 column: "ClienteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Producao_ProdutoId",
-                table: "Producao",
-                column: "ProdutoId");
+                name: "IX_VendaItens_ItemId",
+                table: "VendaItens",
+                column: "ItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VendaItens_VendaId",
+                table: "VendaItens",
+                column: "VendaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vendas_ClienteId",
@@ -215,13 +231,16 @@ namespace ControleDeEstoque.Migrations
                 name: "Producao");
 
             migrationBuilder.DropTable(
+                name: "VendaItens");
+
+            migrationBuilder.DropTable(
                 name: "Itens");
 
             migrationBuilder.DropTable(
-                name: "Pedidos");
+                name: "Vendas");
 
             migrationBuilder.DropTable(
-                name: "Vendas");
+                name: "Pedidos");
 
             migrationBuilder.DropTable(
                 name: "Clientes");

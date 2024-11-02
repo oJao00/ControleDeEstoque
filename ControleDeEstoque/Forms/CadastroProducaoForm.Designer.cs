@@ -45,7 +45,7 @@
             label3 = new Label();
             txtObservacoes = new TextBox();
             label4 = new Label();
-            cmbProduto = new ComboBox();
+            txtProduto = new TextBox();
             ((System.ComponentModel.ISupportInitialize)nudQuantidadeProduzida).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudQuantidadePerdida).BeginInit();
             SuspendLayout();
@@ -78,6 +78,7 @@
             btnCancelarProducao.TabIndex = 66;
             btnCancelarProducao.Text = "Cancelar";
             btnCancelarProducao.UseVisualStyleBackColor = true;
+            btnCancelarProducao.Click += btnCancelarProducao_Click;
             // 
             // btnSalvarProducao
             // 
@@ -218,19 +219,19 @@
             label4.Text = "Observações";
             label4.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // cmbProduto
+            // txtProduto
             // 
-            cmbProduto.FormattingEnabled = true;
-            cmbProduto.Location = new Point(94, 25);
-            cmbProduto.Name = "cmbProduto";
-            cmbProduto.Size = new Size(121, 23);
-            cmbProduto.TabIndex = 89;
+            txtProduto.Location = new Point(94, 25);
+            txtProduto.Name = "txtProduto";
+            txtProduto.Size = new Size(119, 23);
+            txtProduto.TabIndex = 90;
             // 
             // CadastroProducaoForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(466, 381);
+            Controls.Add(txtProduto);
             Controls.Add(txtObservacoes);
             Controls.Add(label4);
             Controls.Add(txtEquipamentoUtilizado);
@@ -248,8 +249,8 @@
             Controls.Add(lblContato);
             Controls.Add(lblNome);
             Controls.Add(lblCep);
-            Controls.Add(cmbProduto);
             Name = "CadastroProducaoForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastro de Produção";
             Load += CadastroProducaoForm_Load;
             ((System.ComponentModel.ISupportInitialize)nudQuantidadeProduzida).EndInit();
@@ -276,6 +277,6 @@
         private Label label3;
         private TextBox txtObservacoes;
         private Label label4;
-        private ComboBox cmbProduto;
+        private TextBox txtProduto;
     }
 }

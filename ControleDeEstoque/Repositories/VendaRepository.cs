@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ControleDeEstoque.Data;
+﻿using ControleDeEstoque.Data;
 using ControleDeEstoque.Models;
 using ControleDeEstoque.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -21,12 +16,12 @@ namespace ControleDeEstoque.Repositories
 
         public async Task<List<Venda>> GetAllAsync()
         {
-            return await _context.Vendas.Include(v => v.Cliente).Include(v => v.ItensVendidos).ToListAsync();
+            return await _context.Vendas.Include(v => v.ClienteId).Include(v => v.ItensVendidos).ToListAsync();
         }
 
         public async Task<Venda> GetByIdAsync(int id)
         {
-            return await _context.Vendas.Include(v => v.Cliente).Include(v => v.ItensVendidos).FirstOrDefaultAsync(v => v.Id == id);
+            return await _context.Vendas.Include(v => v.ClienteId).Include(v => v.ItensVendidos).FirstOrDefaultAsync(v => v.Id == id);
         }
 
         public async Task AddAsync(Venda venda)

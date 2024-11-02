@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ControleDeEstoque.Models;
+﻿using ControleDeEstoque.Models;
 
 
 namespace ControleDeEstoque.Services.Interfaces
@@ -15,5 +10,7 @@ namespace ControleDeEstoque.Services.Interfaces
         Task AddItemAsync(Item item);
         Task UpdateItemAsync(Item item);
         Task DeleteItemAsync(int id);
+        List<Item> BuscarItensPorNome(string nome);
+
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ControleDeEstoque.Data;
+﻿using ControleDeEstoque.Data;
 using ControleDeEstoque.Models;
 using ControleDeEstoque.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;

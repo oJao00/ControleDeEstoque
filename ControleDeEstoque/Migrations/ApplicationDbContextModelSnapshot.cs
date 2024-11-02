@@ -160,16 +160,40 @@ namespace ControleDeEstoque.Migrations
                     b.Property<int>("QuantidadeEstoque")
                         .HasColumnType("int");
 
+                    b.HasKey("Id");
+
+                    b.HasIndex("PedidoId");
+
+                    b.ToTable("Itens");
+                });
+
+            modelBuilder.Entity("ControleDeEstoque.Models.ItemVenda", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PrecoUnitario")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
                     b.Property<int?>("VendaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PedidoId");
+                    b.HasIndex("ItemId");
 
                     b.HasIndex("VendaId");
 
-                    b.ToTable("Itens");
+                    b.ToTable("ItemVendas");
                 });
 
             modelBuilder.Entity("ControleDeEstoque.Models.Pedido", b =>
@@ -230,8 +254,9 @@ namespace ControleDeEstoque.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProdutoId")
-                        .HasColumnType("int");
+                    b.Property<string>("Produto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("QuantidadePerdida")
                         .HasColumnType("int");
@@ -240,8 +265,6 @@ namespace ControleDeEstoque.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProdutoId");
 
                     b.ToTable("Producao");
                 });
@@ -269,8 +292,6 @@ namespace ControleDeEstoque.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClienteId");
-
                     b.ToTable("Vendas");
                 });
 
@@ -290,35 +311,24 @@ namespace ControleDeEstoque.Migrations
                     b.HasOne("ControleDeEstoque.Models.Pedido", null)
                         .WithMany("ItensDoPedido")
                         .HasForeignKey("PedidoId");
+                });
+
+            modelBuilder.Entity("ControleDeEstoque.Models.ItemVenda", b =>
+                {
+                    b.HasOne("ControleDeEstoque.Models.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ControleDeEstoque.Models.Venda", null)
                         .WithMany("ItensVendidos")
                         .HasForeignKey("VendaId");
+
+                    b.Navigation("Item");
                 });
 
             modelBuilder.Entity("ControleDeEstoque.Models.Pedido", b =>
-                {
-                    b.HasOne("ControleDeEstoque.Models.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cliente");
-                });
-
-            modelBuilder.Entity("ControleDeEstoque.Models.Producao", b =>
-                {
-                    b.HasOne("ControleDeEstoque.Models.Item", "Produto")
-                        .WithMany()
-                        .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Produto");
-                });
-
-            modelBuilder.Entity("ControleDeEstoque.Models.Venda", b =>
                 {
                     b.HasOne("ControleDeEstoque.Models.Cliente", "Cliente")
                         .WithMany()

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleDeEstoque.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241027135450_InitialCreate")]
+    [Migration("20241102142257_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -163,14 +163,9 @@ namespace ControleDeEstoque.Migrations
                     b.Property<int>("QuantidadeEstoque")
                         .HasColumnType("int");
 
-                    b.Property<int?>("VendaId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("PedidoId");
-
-                    b.HasIndex("VendaId");
 
                     b.ToTable("Itens");
                 });
@@ -233,8 +228,9 @@ namespace ControleDeEstoque.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProdutoId")
-                        .HasColumnType("int");
+                    b.Property<string>("Produto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("QuantidadePerdida")
                         .HasColumnType("int");
@@ -243,8 +239,6 @@ namespace ControleDeEstoque.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProdutoId");
 
                     b.ToTable("Producao");
                 });
@@ -277,6 +271,35 @@ namespace ControleDeEstoque.Migrations
                     b.ToTable("Vendas");
                 });
 
+            modelBuilder.Entity("ControleDeEstoque.Models.VendaItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PrecoUnitario")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VendaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("VendaId");
+
+                    b.ToTable("VendaItens");
+                });
+
             modelBuilder.Entity("ControleDeEstoque.Models.Estoque", b =>
                 {
                     b.HasOne("ControleDeEstoque.Models.Item", "Item")
@@ -293,10 +316,6 @@ namespace ControleDeEstoque.Migrations
                     b.HasOne("ControleDeEstoque.Models.Pedido", null)
                         .WithMany("ItensDoPedido")
                         .HasForeignKey("PedidoId");
-
-                    b.HasOne("ControleDeEstoque.Models.Venda", null)
-                        .WithMany("ItensVendidos")
-                        .HasForeignKey("VendaId");
                 });
 
             modelBuilder.Entity("ControleDeEstoque.Models.Pedido", b =>
@@ -310,17 +329,6 @@ namespace ControleDeEstoque.Migrations
                     b.Navigation("Cliente");
                 });
 
-            modelBuilder.Entity("ControleDeEstoque.Models.Producao", b =>
-                {
-                    b.HasOne("ControleDeEstoque.Models.Item", "Produto")
-                        .WithMany()
-                        .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Produto");
-                });
-
             modelBuilder.Entity("ControleDeEstoque.Models.Venda", b =>
                 {
                     b.HasOne("ControleDeEstoque.Models.Cliente", "Cliente")
@@ -330,6 +338,25 @@ namespace ControleDeEstoque.Migrations
                         .IsRequired();
 
                     b.Navigation("Cliente");
+                });
+
+            modelBuilder.Entity("ControleDeEstoque.Models.VendaItem", b =>
+                {
+                    b.HasOne("ControleDeEstoque.Models.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ControleDeEstoque.Models.Venda", "Venda")
+                        .WithMany("ItensVendidos")
+                        .HasForeignKey("VendaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+
+                    b.Navigation("Venda");
                 });
 
             modelBuilder.Entity("ControleDeEstoque.Models.Pedido", b =>

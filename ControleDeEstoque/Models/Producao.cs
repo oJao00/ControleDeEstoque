@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-namespace ControleDeEstoque.Models
+﻿namespace ControleDeEstoque.Models
 {
     public class Producao
     {
         public int Id { get; set; }
-        public Item Produto { get; set; }
+        public string Produto { get; set; }
         public DateTime DataDeProducao { get; set; }
         public int QuantidadeProduzida { get; set; }
         public int QuantidadePerdida { get; set; }
@@ -21,7 +14,7 @@ namespace ControleDeEstoque.Models
 
         public Producao() { }
 
-        public Producao(int id, Item produto, DateTime dataDeProducao, int quantidadeProduzida, int quantidadePerdida, string condicoesAmbientais, string metodoDeProducao, string equipamentoUtilizado, string observacoes)
+        public Producao(int id, string produto, DateTime dataDeProducao, int quantidadeProduzida, int quantidadePerdida, string condicoesAmbientais, string metodoDeProducao, string equipamentoUtilizado, string observacoes)
         {
             Id = id;
             Produto = produto;

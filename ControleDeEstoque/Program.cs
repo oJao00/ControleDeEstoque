@@ -1,15 +1,12 @@
-using System;
-using System.IO;
-using System.Windows.Forms;
+using ControleDeEstoque.Data;
+using ControleDeEstoque.Forms;
+using ControleDeEstoque.Repositories;
+using ControleDeEstoque.Repositories.Interfaces;
+using ControleDeEstoque.Services;
+using ControleDeEstoque.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ControleDeEstoque.Data;
-using ControleDeEstoque.Repositories.Interfaces;
-using ControleDeEstoque.Repositories;
-using ControleDeEstoque.Services.Interfaces;
-using ControleDeEstoque.Services;
-using ControleDeEstoque.Forms;
 
 namespace ControleDeEstoque
 {
@@ -30,6 +27,7 @@ namespace ControleDeEstoque
             Application.Run(mainForm);
 
 
+
         }
 
         private static void ConfigureServices(ServiceCollection services)
@@ -43,6 +41,9 @@ namespace ControleDeEstoque
             // Adicionar o ApplicationDbContext com a string de conexão
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+
+
 
 
             // Registrar os formulários

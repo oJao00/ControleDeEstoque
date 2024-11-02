@@ -1,7 +1,5 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using ControleDeEstoque.Models;
 using ControleDeEstoque.Services.Interfaces;
-using ControleDeEstoque.Models;
 
 namespace ControleDeEstoque.Forms
 {

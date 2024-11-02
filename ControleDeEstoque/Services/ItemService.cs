@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ControleDeEstoque.Data;
 using ControleDeEstoque.Models;
 using ControleDeEstoque.Repositories.Interfaces;
 using ControleDeEstoque.Services.Interfaces;
@@ -13,10 +9,13 @@ namespace ControleDeEstoque.Services
     public class ItemService : IItemService
     {
         private readonly IItemRepository _itemRepository;
+        private readonly ApplicationDbContext _context;
 
-        public ItemService(IItemRepository itemRepository)
+
+        public ItemService(IItemRepository itemRepository, ApplicationDbContext context)
         {
             _itemRepository = itemRepository;
+            _context = context;
         }
 
         public async Task<List<Item>> GetAllItemsAsync()
@@ -43,6 +42,17 @@ namespace ControleDeEstoque.Services
         public async Task DeleteItemAsync(int id)
         {
             await _itemRepository.DeleteAsync(id);
+        }
+        public List<Item> BuscarItensPorNome(string nome)
+        {
+            if (string.IsNullOrEmpty(nome))
+            {
+                return new List<Item>(); // Retorne uma lista vazia se o nome for nulo ou vazio
+            }
+
+            return _context.Itens
+                .Where(i => i.Nome != null && i.Nome.Contains(nome))
+                .ToList();
         }
     }
 }
