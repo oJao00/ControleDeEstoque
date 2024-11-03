@@ -208,7 +208,7 @@
             lblComplemento.Name = "lblComplemento";
             lblComplemento.Size = new Size(95, 23);
             lblComplemento.TabIndex = 37;
-            lblComplemento.Text = "Complemento";
+            lblComplemento.Text = "Endereço";
             lblComplemento.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // maskedTextBoxCEP
@@ -263,6 +263,9 @@
             Controls.Add(lblNome);
             Controls.Add(maskedTextBoxCEP);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MaximumSize = new Size(482, 420);
+            MinimumSize = new Size(482, 420);
             Name = "CadastroClienteForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadatrar Cliente";

@@ -158,6 +158,9 @@
             Controls.Add(btnBuscar);
             Controls.Add(dtpData);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MaximumSize = new Size(700, 560);
+            MinimumSize = new Size(700, 560);
             Name = "ConsultarVendasForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Consultar Vendas";

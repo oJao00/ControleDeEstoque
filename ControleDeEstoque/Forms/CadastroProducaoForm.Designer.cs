@@ -251,6 +251,9 @@
             Controls.Add(lblNome);
             Controls.Add(lblCep);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MaximumSize = new Size(482, 420);
+            MinimumSize = new Size(482, 420);
             Name = "CadastroProducaoForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastro de Produção";

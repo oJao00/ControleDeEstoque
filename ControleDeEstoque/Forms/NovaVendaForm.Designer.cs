@@ -310,6 +310,9 @@
             Controls.Add(lstResultadosItens);
             Controls.Add(dgvItensSelecionados);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MaximumSize = new Size(943, 602);
+            MinimumSize = new Size(943, 602);
             Name = "NovaVendaForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Nova Venda";

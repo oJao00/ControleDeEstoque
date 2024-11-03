@@ -183,6 +183,9 @@
             Controls.Add(lblNome);
             Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MaximumSize = new Size(400, 300);
+            MinimumSize = new Size(400, 300);
             Name = "CadastroItemForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastrar Item";

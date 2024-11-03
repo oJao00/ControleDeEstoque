@@ -167,6 +167,9 @@
             Controls.Add(label1);
             DoubleBuffered = true;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MaximumSize = new Size(700, 578);
+            MinimumSize = new Size(700, 578);
             Name = "EstoqueForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Estoque";

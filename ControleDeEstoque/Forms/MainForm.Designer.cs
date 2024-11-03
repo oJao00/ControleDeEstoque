@@ -133,6 +133,7 @@
             DoubleBuffered = true;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
+            MinimumSize = new Size(900, 600);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "AGRONIP";
