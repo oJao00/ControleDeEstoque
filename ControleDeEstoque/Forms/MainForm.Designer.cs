@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             menuStrip1 = new MenuStrip();
             cadastrarToolStripMenuItem = new ToolStripMenuItem();
             itemToolStripMenuItem = new ToolStripMenuItem();
@@ -38,14 +39,13 @@
             novaVendaToolStripMenuItem = new ToolStripMenuItem();
             consultarVendaToolStripMenuItem = new ToolStripMenuItem();
             estoqueToolStripMenuItem = new ToolStripMenuItem();
-            relatóriosToolStripMenuItem = new ToolStripMenuItem();
             sairToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { cadastrarToolStripMenuItem, vendaToolStripMenuItem, estoqueToolStripMenuItem, relatóriosToolStripMenuItem, sairToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { cadastrarToolStripMenuItem, vendaToolStripMenuItem, estoqueToolStripMenuItem, sairToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(884, 24);
@@ -97,40 +97,41 @@
             // novaVendaToolStripMenuItem
             // 
             novaVendaToolStripMenuItem.Name = "novaVendaToolStripMenuItem";
-            novaVendaToolStripMenuItem.Size = new Size(180, 22);
+            novaVendaToolStripMenuItem.Size = new Size(160, 22);
             novaVendaToolStripMenuItem.Text = "Nova Venda";
             novaVendaToolStripMenuItem.Click += novaVendaToolStripMenuItem_Click;
             // 
             // consultarVendaToolStripMenuItem
             // 
             consultarVendaToolStripMenuItem.Name = "consultarVendaToolStripMenuItem";
-            consultarVendaToolStripMenuItem.Size = new Size(180, 22);
+            consultarVendaToolStripMenuItem.Size = new Size(160, 22);
             consultarVendaToolStripMenuItem.Text = "Consultar Venda";
+            consultarVendaToolStripMenuItem.Click += consultarVendaToolStripMenuItem_Click;
             // 
             // estoqueToolStripMenuItem
             // 
             estoqueToolStripMenuItem.Name = "estoqueToolStripMenuItem";
             estoqueToolStripMenuItem.Size = new Size(61, 20);
             estoqueToolStripMenuItem.Text = "Estoque";
-            // 
-            // relatóriosToolStripMenuItem
-            // 
-            relatóriosToolStripMenuItem.Name = "relatóriosToolStripMenuItem";
-            relatóriosToolStripMenuItem.Size = new Size(71, 20);
-            relatóriosToolStripMenuItem.Text = "Relatórios";
+            estoqueToolStripMenuItem.Click += estoqueToolStripMenuItem_Click;
             // 
             // sairToolStripMenuItem
             // 
             sairToolStripMenuItem.Name = "sairToolStripMenuItem";
             sairToolStripMenuItem.Size = new Size(38, 20);
             sairToolStripMenuItem.Text = "Sair";
+            sairToolStripMenuItem.Click += sairToolStripMenuItem_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = Properties.Resources.Captura_de_tela_2024_05_12_150726_removebg_preview;
+            BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(884, 561);
             Controls.Add(menuStrip1);
+            DoubleBuffered = true;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
@@ -152,7 +153,6 @@
         private ToolStripMenuItem produçãoToolStripMenuItem1;
         private ToolStripMenuItem vendaToolStripMenuItem;
         private ToolStripMenuItem estoqueToolStripMenuItem;
-        private ToolStripMenuItem relatóriosToolStripMenuItem;
         private ToolStripMenuItem sairToolStripMenuItem;
         private ToolStripMenuItem novaVendaToolStripMenuItem;
         private ToolStripMenuItem consultarVendaToolStripMenuItem;

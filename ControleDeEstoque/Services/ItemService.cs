@@ -18,6 +18,34 @@ namespace ControleDeEstoque.Services
             _context = context;
         }
 
+        public List<Item> ObterTodosItens()
+        {
+            return _context.Itens.ToList();
+        }
+
+        public List<Item> ObterItensPorNome(string nome)
+        {
+            return _context.Itens
+                           .Where(i => i.Nome.Contains(nome))
+                           .ToList();
+        }
+
+        public Item ObterItemPorId(int id)
+        {
+            return _context.Itens.Find(id);
+        }
+
+        public void AtualizarItem(Item item)
+        {
+            var itemExistente = _context.Itens.Find(item.Id);
+            if (itemExistente != null)
+            {
+                itemExistente.Preco = item.Preco;
+                itemExistente.QuantidadeEstoque = item.QuantidadeEstoque;
+                _context.SaveChanges();
+            }
+        }
+
         public async Task<List<Item>> GetAllItemsAsync()
         {
             return await _itemRepository.GetAllAsync();
@@ -54,5 +82,10 @@ namespace ControleDeEstoque.Services
                 .Where(i => i.Nome != null && i.Nome.Contains(nome))
                 .ToList();
         }
+        public List<Item> ObterItensComBaixoEstoque(int limiteBaixoEstoque)
+        {
+            return _context.Itens.Where(item => item.QuantidadeEstoque < limiteBaixoEstoque).ToList();
+        }
+
     }
 }

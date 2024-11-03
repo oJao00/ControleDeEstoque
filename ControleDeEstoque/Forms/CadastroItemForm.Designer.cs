@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CadastroItemForm));
             lblNome = new Label();
             txtNome = new TextBox();
             lblCAtegoria = new Label();
@@ -181,6 +182,7 @@
             Controls.Add(txtNome);
             Controls.Add(lblNome);
             Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CadastroItemForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastrar Item";

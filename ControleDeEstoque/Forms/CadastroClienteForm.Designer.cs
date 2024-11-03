@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CadastroClienteForm));
             lblNome = new Label();
             txtNome = new TextBox();
             lblContato = new Label();
@@ -261,6 +262,7 @@
             Controls.Add(txtNome);
             Controls.Add(lblNome);
             Controls.Add(maskedTextBoxCEP);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CadastroClienteForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadatrar Cliente";

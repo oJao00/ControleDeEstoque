@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CadastroProducaoForm));
             txtCondicoesAmbientais = new TextBox();
             lblCep = new Label();
             btnCancelarProducao = new Button();
@@ -249,6 +250,7 @@
             Controls.Add(lblContato);
             Controls.Add(lblNome);
             Controls.Add(lblCep);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CadastroProducaoForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastro de Produção";

@@ -10,6 +10,9 @@ namespace ControleDeEstoque.Services.Interfaces
         Task UpdateVendaAsync(Venda venda);
         Task DeleteVendaAsync(int id);
         void SalvarVenda(Venda venda);
+        IEnumerable<Venda> ObterVendasPorData(DateTime data);
+        Cliente ObterClientePorId(int clienteId);
+        Venda ObterVendaPorId(int id);
 
     }
 }

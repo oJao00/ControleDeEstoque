@@ -2,6 +2,7 @@
 using ControleDeEstoque.Models;
 using ControleDeEstoque.Repositories.Interfaces;
 using ControleDeEstoque.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace ControleDeEstoque.Services
 {
@@ -62,6 +63,21 @@ namespace ControleDeEstoque.Services
             _context.SaveChanges();
         }
 
+        public Cliente ObterClientePorId(int clienteId)
+        {
+            return _context.Clientes.Find(clienteId);
+        }
+
+        public IEnumerable<Venda> ObterVendasPorData(DateTime data)
+        {
+            return _context.Vendas
+                .Where(v => v.Data.Date == data) // Filtra as vendas pela data
+                .ToList();
+        }
+        public Venda ObterVendaPorId(int id)
+        {
+            return _context.Vendas.Include(v => v.ItensVendidos).FirstOrDefault(v => v.Id == id);
+        }
 
 
 

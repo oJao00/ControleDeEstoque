@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CadastroFornecedorForm));
             maskedTextBoxContatoFornecedor = new MaskedTextBox();
             txtComplementoFornecedor = new TextBox();
             lblComplemento = new Label();
@@ -262,6 +263,7 @@
             Controls.Add(txtNomeFornecedor);
             Controls.Add(lblNome);
             Controls.Add(maskedTextBoxCEPFornecedor);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CadastroFornecedorForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastrar Fornecedor";

@@ -61,8 +61,8 @@ namespace ControleDeEstoque.Forms
             cmbCliente.AutoCompleteSource = AutoCompleteSource.ListItems;
 
 
-
         }
+
 
         private void dgvItensSelecionados_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
@@ -99,16 +99,20 @@ namespace ControleDeEstoque.Forms
             txtTotalVenda.Text = totalVenda.ToString("C"); // Formata como moeda
         }
 
+       
+
+
         private void btnBuscarItem_Click(object sender, EventArgs e)
         {
             lstResultadosItens.Items.Clear();
+
             var buscaTexto = txtBuscarItem.Text.Trim();
             var itens = _itemService.BuscarItensPorNome(buscaTexto);
 
             foreach (var item in itens)
             {
                 var quantidadeEmEstoque = item.QuantidadeEstoque;
-                if (quantidadeEmEstoque > 0)
+                if (quantidadeEmEstoque >= 0)
                 {
                     var listViewItem = new ListViewItem(item.Id.ToString())
                     {

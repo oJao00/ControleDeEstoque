@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NovaVendaForm));
             label1 = new Label();
             txtBuscarItem = new TextBox();
             btnBuscarItem = new Button();
@@ -308,6 +309,7 @@
             Controls.Add(label1);
             Controls.Add(lstResultadosItens);
             Controls.Add(dgvItensSelecionados);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "NovaVendaForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Nova Venda";

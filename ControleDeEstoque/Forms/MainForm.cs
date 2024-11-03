@@ -60,11 +60,40 @@ namespace ControleDeEstoque
 
         private void novaVendaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
-                var vendaForm = new NovaVendaForm(_itemService, _clienteService, _vendaService, _context);
 
-                vendaForm.ShowDialog();
+            var vendaForm = new NovaVendaForm(_itemService, _clienteService, _vendaService, _context);
+
+            vendaForm.ShowDialog();
+
+        }
+
+        private void consultarVendaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var consultarVendasForm = new ConsultarVendasForm(_context, _vendaService);
+            consultarVendasForm.ShowDialog();
+        }
+
+        private void estoqueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var estoqueForm = new EstoqueForm(_itemService);
+            estoqueForm.ShowDialog();
+        }
+
+        private void sairToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Exibir uma mensagem de confirmação antes de sa
+                Application.Exit(); // Fecha a aplicação
             
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            var resultado = MessageBox.Show("Tem certeza que deseja sair?", "Confirmar saída", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }
